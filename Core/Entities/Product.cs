@@ -1,15 +1,16 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Entities
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-        
-        [Required]
         public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string imageUrl { get; set; }
+        public Category Category { get; set; }
+        public int CategoryId { get; set; }
+        public Brand Brand { get; set; }
+        public int BrandId { get; set; }
     }
 }
