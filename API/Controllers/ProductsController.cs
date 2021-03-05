@@ -12,38 +12,42 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductRepository _productRepository;
+        private readonly IGenericRepository<Product> _productRepository;
+        private readonly IGenericRepository<Brand> _brandRepository;
+        private readonly IGenericRepository<Category> _categoryRepository;
 
-        public ProductsController(IProductRepository productRepository)
+        public ProductsController(IGenericRepository<Product> productRepository, IGenericRepository<Brand> brandRepository, IGenericRepository<Category> categoryRepository)
         {
             _productRepository = productRepository;
+            _brandRepository = brandRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
         {
-            var products = await _productRepository.GetProductsAsync();
+            var products = await _productRepository.GetListAsync();
             return Ok(products);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
-            var product = await _productRepository.GetProductByIdAsync(id);
+            var product = await _productRepository.GetByIdAsync(id);
             return Ok(product);
         }
 
         [HttpGet("categories")]
         public async Task<ActionResult<IReadOnlyList<Category>>> GetProductCategories()
         {
-            var categories = await _productRepository.GetProductCategoriesAsync();
+            var categories = await _categoryRepository.GetListAsync();
             return Ok(categories);
         }
 
         [HttpGet("brands")]
         public async Task<ActionResult<IReadOnlyList<Brand>>> GetProductBrands()
         {
-            var brands = await _productRepository.GetProductBrandsAsync();
+            var brands = await _brandRepository.GetListAsync();
             return Ok(brands);
         }
     }
