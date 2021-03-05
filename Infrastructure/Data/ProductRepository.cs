@@ -15,6 +15,16 @@ namespace Infrastructure.Data
             _context = context;
         }
 
+        public async Task<IReadOnlyList<Brand>> GetProductBrandsAsync()
+        {
+            return await _context.Brands.ToListAsync();
+        }
+
+        public async Task<IReadOnlyList<Category>> GetProductCategoriesAsync()
+        {
+            return await _context.Categories.ToArrayAsync();
+        }
+
         public async Task<Product> GetProductByIdAsync(int id)
         {
             return await _context.Products.FindAsync(id);

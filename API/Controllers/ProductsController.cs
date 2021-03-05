@@ -20,7 +20,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetProducts()
+        public async Task<ActionResult<IReadOnlyList<Product>>> GetProducts()
         {
             var products = await _productRepository.GetProductsAsync();
             return Ok(products);
@@ -31,6 +31,20 @@ namespace API.Controllers
         {
             var product = await _productRepository.GetProductByIdAsync(id);
             return Ok(product);
+        }
+
+        [HttpGet("categories")]
+        public async Task<ActionResult<IReadOnlyList<Category>>> GetProductCategories()
+        {
+            var categories = await _productRepository.GetProductCategoriesAsync();
+            return Ok(categories);
+        }
+
+        [HttpGet("brands")]
+        public async Task<ActionResult<IReadOnlyList<Brand>>> GetProductBrands()
+        {
+            var brands = await _productRepository.GetProductBrandsAsync();
+            return Ok(brands);
         }
     }
 }
