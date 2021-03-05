@@ -26,6 +26,8 @@ namespace API
                     var context = services.GetRequiredService<StoreContext>();
                     // Apply pending database or create one if don't have
                     await context.Database.MigrateAsync();
+                    // Seed the datas
+                    await StoreContextSeed.SeedAsync(context, loggerFactory);
                 } catch (Exception ex)
                 {
                     var logger = loggerFactory.CreateLogger<Program>();
